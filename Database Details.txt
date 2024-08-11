@@ -1,0 +1,1373 @@
+CREATE TABLE bond_targets (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  bond_id int NOT NULL,
+  WORK_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  baseline_id smallint NOT NULL,
+  doe date NOT NULL,
+  pro decimal(5,2) DEFAULT NULL,
+  fin decimal(12,0) DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  created_at datetime DEFAULT NULL,
+  created_by int DEFAULT NULL,
+  updated_by int DEFAULT NULL,
+  remark text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (bond_id,WORK_code,baseline_id,doe),
+  KEY id (id)
+) ENGINE=InnoDB AUTO_INCREMENT=2183 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE bond_progress (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  bond_id int NOT NULL,
+  WORK_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  pro decimal(5,2) NOT NULL,
+  doe date NOT NULL,
+  created_by int DEFAULT NULL,
+  created_at datetime DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  remark text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (bond_id,WORK_code,doe),
+  KEY id (id)
+) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE bond_phy_targets (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  WORK_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  bond_id int NOT NULL,
+  component_id int NOT NULL,
+  from_date date NOT NULL,
+  to_date date DEFAULT NULL,
+  quantity decimal(10,3) NOT NULL DEFAULT '0.000',
+  amount decimal(10,0) NOT NULL DEFAULT '0',
+  start_date date DEFAULT NULL,
+  end_date date DEFAULT NULL,
+  finished_quantity decimal(10,3) DEFAULT NULL,
+  created_at datetime DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  created_by int DEFAULT NULL,
+  updated_by int DEFAULT NULL,
+  is_active tinyint DEFAULT '1',
+  remark text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (WORK_code,bond_id,component_id,from_date),
+  KEY id (id)
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE bond_phy_target_resources (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  bond_phy_target_id int NOT NULL,
+  resource_id int NOT NULL,
+  quantity decimal(10,3) NOT NULL,
+  unit varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  user_id int NOT NULL,
+  created_at timestamp NULL DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (bond_phy_target_id,resource_id),
+  KEY id (id)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE bond_phy_target_baselines (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  baseline_id int DEFAULT '0',
+  bond_phy_target_id bigint unsigned NOT NULL,
+  WORK_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  bond_id int NOT NULL,
+  component_id int NOT NULL,
+  from_date date NOT NULL,
+  to_date date DEFAULT NULL,
+  quantity decimal(10,3) NOT NULL DEFAULT '0.000',
+  amount decimal(10,0) NOT NULL DEFAULT '0',
+  start_date date DEFAULT NULL,
+  end_date date DEFAULT NULL,
+  finished_quantity decimal(10,3) DEFAULT '0.000',
+  is_active tinyint DEFAULT '1',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=330 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE bond_phy_achivements (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  WORK_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  bond_id int NOT NULL,
+  component_id int NOT NULL,
+  doe date NOT NULL,
+  quantity decimal(10,3) DEFAULT NULL,
+  bond_phy_target_id int DEFAULT NULL,
+  created_at datetime DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  created_by int DEFAULT NULL,
+  updated_by int DEFAULT NULL,
+  KEY id (id)
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE bond_kmls (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  bond_id int NOT NULL,
+  name varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  file_address varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE bond_issue_types (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  name varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  bond_id int NOT NULL DEFAULT '0',
+  alloted_hours int DEFAULT '1',
+  allowed_response_duration int NOT NULL DEFAULT '24',
+  created_at timestamp NULL DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+CREATE TABLE bond_issue_events (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  bond_issue_type_id int NOT NULL,
+  office_id int NOT NULL,
+  bond_id int DEFAULT NULL,
+  issue text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  issue_pic_lat decimal(10,8) NOT NULL,
+  issue_pic_long decimal(10,8) NOT NULL,
+  issue_pic_address varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  uploaded_by varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  submitted_at datetime DEFAULT NULL,
+  submit_by int DEFAULT NULL,
+  alloted_hours int NOT NULL DEFAULT '1',
+  reverted_at timestamp NULL DEFAULT NULL,
+  acknowladged_at datetime DEFAULT NULL,
+  resolved_at datetime DEFAULT NULL,
+  resolved_pic_lat decimal(10,8) DEFAULT NULL,
+  resolved_pic_long decimal(10,8) DEFAULT NULL,
+  resolved_pic_address varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  resolved_comment text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  reverted_to_resolve_at timestamp NULL DEFAULT NULL,
+  reverted_to_resolve_by int DEFAULT NULL,
+  checked_at timestamp NULL DEFAULT NULL,
+  checked_by int DEFAULT NULL,
+  status int NOT NULL DEFAULT '0' COMMENT '0=issue found, 1=submitted to contractor / alloted to contractor,2=acknowladge by contractor,3=reverted from contractor,4=resolved by contractor,5=reverted to contractor6=accept,7=canceled,',
+  created_at timestamp NOT NULL,
+  updated_at timestamp NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE bond_expenditures (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  bond_id int NOT NULL,
+  amount bigint NOT NULL,
+  doe date NOT NULL,
+  created_by int DEFAULT NULL,
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL,
+  remark text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (id),
+  KEY id (id)
+) ENGINE=InnoDB AUTO_INCREMENT=990 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE blocks (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  district_id int unsigned NOT NULL,
+  name varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  name_h varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  created_at timestamp NULL DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL,
+  SHAPE geometry DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY blocks_district_id_foreign (district_id),
+  CONSTRAINT blocks_district_id_foreign FOREIGN KEY (district_id) REFERENCES districts (id)
+) ENGINE=InnoDB AUTO_INCREMENT=8889 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE audit_logs (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  description text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  subject_id int unsigned DEFAULT NULL,
+  subject_type varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  user_id int unsigned DEFAULT NULL,
+  properties text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  host varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  created_at timestamp NULL DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE annual_physical_target_achivements (
+  WORK_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  yearno smallint NOT NULL,
+  plength decimal(6,3) DEFAULT NULL,
+  pno int DEFAULT NULL,
+  pspan decimal(8,3) DEFAULT NULL,
+  pjob smallint DEFAULT NULL,
+  pbuild smallint DEFAULT NULL,
+  plength_t decimal(6,3) DEFAULT NULL,
+  pno_t int DEFAULT NULL,
+  pspan_t decimal(8,3) DEFAULT NULL,
+  pjob_t smallint DEFAULT NULL,
+  pbuild_t smallint DEFAULT NULL,
+  plength_afy decimal(6,3) DEFAULT NULL,
+  pno_afy smallint DEFAULT NULL,
+  pspan_afy decimal(8,3) DEFAULT NULL,
+  pjob_afy smallint DEFAULT NULL,
+  pbuild_afy smallint DEFAULT NULL,
+  lastdata tinyint DEFAULT NULL,
+  expenditure decimal(11,0) DEFAULT '0',
+  PRIMARY KEY (WORK_code,yearno),
+  KEY hab_code (WORK_code),
+  KEY works_Detailtbl_Physical_target_achivement (WORK_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE allotment_backups (
+  id int NOT NULL AUTO_INCREMENT,
+  work_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  ALOTMENT double DEFAULT NULL,
+  created_at timestamp NULL DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=33527 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE alert_types (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  type varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  hr_before_1 int NOT NULL,
+  hr_before_2 int DEFAULT NULL,
+  hr_before_3 int DEFAULT NULL,
+  created_at timestamp NULL DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL,
+  deleted_at timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY alert_types_type_unique (type),
+  UNIQUE KEY alert_types_hr_before_1_unique (hr_before_1)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE alert_projects (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  alert_for_id int unsigned NOT NULL,
+  project_detail varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  refference_no varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  valid_from datetime DEFAULT NULL,
+  valid_upto datetime NOT NULL,
+  amount decimal(15,2) DEFAULT NULL,
+  contractor_details varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  issuing_authority varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  office_id int unsigned NOT NULL,
+  users_for_notification varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  remark text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  created_at timestamp NULL DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL,
+  deleted_at timestamp NULL DEFAULT NULL,
+  is_active tinyint(1) DEFAULT '1',
+  created_by int DEFAULT NULL,
+  updated_by int DEFAULT NULL,
+  bond_id int DEFAULT NULL,
+  pan varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  msg_counter tinyint DEFAULT '0',
+  msg_at timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY alert_for_fk_2116633 (alert_for_id),
+  KEY office_fk_2116696 (office_id),
+  CONSTRAINT alert_for_fk_2116633 FOREIGN KEY (alert_for_id) REFERENCES alert_types (id),
+  CONSTRAINT office_fk_2116696 FOREIGN KEY (office_id) REFERENCES ee_offices (id)
+) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE alert_project_user (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  alert_project_id int unsigned NOT NULL COMMENT 'same a forest_proposal_id may be merged',
+  user_id int unsigned NOT NULL,
+  status_date date DEFAULT NULL,
+  status varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  counter int DEFAULT '0',
+  is_active tinyint(1) DEFAULT '1',
+  created_at datetime DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  PRIMARY KEY (alert_project_id,user_id),
+  KEY id (id),
+  CONSTRAINT alert_project_user_ibfk_1 FOREIGN KEY (alert_project_id) REFERENCES alert_projects (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE aes (
+  ee_office_id int DEFAULT NULL,
+  id varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  name varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  name_h varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  AE_Add longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  AE_ph varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  unique_id int NOT NULL AUTO_INCREMENT,
+  KEY unique_id (unique_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1728 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE ae_work (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  AE_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  WORK_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  emp_code varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  doe date DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL,
+  created_at timestamp NULL DEFAULT NULL,
+  doj date DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY mas_worksAE_WORK_JN (WORK_code),
+  KEY {2CA2E754-6934-4C29-BE0D-EA91CAB579A9} (AE_code),
+  KEY AE_WORK_JNWORK_code (WORK_code),
+  KEY AE_code (AE_code),
+  KEY id (id)
+) ENGINE=InnoDB AUTO_INCREMENT=56106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `bond_work` (
+  `bond_id` int NOT NULL,
+  `aggrement_type` tinyint DEFAULT NULL,
+  `WORK_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `old_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `bonds` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `bond_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `bond_date` date DEFAULT NULL,
+  `pan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cost` decimal(13,2) DEFAULT NULL,
+  `estimated_cost` decimal(13,2) DEFAULT '0.00',
+  `start_date` date DEFAULT NULL,
+  `initial_completion_date` date DEFAULT NULL,
+  `intended_completion_date` date DEFAULT NULL,
+  `adc` date DEFAULT NULL,
+  `estimated_var_cost` decimal(13,2) DEFAULT '0.00',
+  `status` tinyint DEFAULT '0' COMMENT '0=live,1=terminated,2=closed,3=unlocked_and_running',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `dlp_start` date DEFAULT NULL,
+  `dlp_end` date DEFAULT NULL,
+  `mnt_start` date DEFAULT NULL,
+  `mnt_end` date DEFAULT NULL,
+  `var_cost` decimal(13,2) DEFAULT '0.00',
+  `payment` decimal(13,2) DEFAULT '0.00',
+  `dlp_period` int DEFAULT '0',
+  `mnt_period` int DEFAULT '0',
+  `stage` tinyint DEFAULT '0' COMMENT '0=not moblized,1=construction,2=dlp,3=mnt,4=dlp+mnt,5=no stage,',
+  `ee_office_id` smallint DEFAULT NULL,
+  `old_id` int DEFAULT NULL,
+  `aggrement_type` tinyint DEFAULT NULL COMMENT '''Single Bond In WORK'',''Work Splitted in More then one bond'',''This bond Merged With Other Works'',''Bond without work in mis''',
+  `expenditure` bigint DEFAULT '0',
+  `plan_status` int DEFAULT '-1',
+  `contact_details` json DEFAULT NULL,
+  `contractor_user_id` int DEFAULT NULL,
+  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9289 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+
+CREATE TABLE `bottleneck_backups` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `work_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Bottelneck` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10395 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `bottlenecks` (
+  `id` int unsigned NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_h` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `ce_offices` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_h` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_exist` tinyint(1) DEFAULT '1',
+  `hr_office_id` int DEFAULT '0',
+  `deleted_at` datetime DEFAULT NULL,
+  `email_2` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `head_emp_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `period_category` tinyint DEFAULT '1',
+  `lat` decimal(10,8) DEFAULT '0.00000000',
+  `lon` decimal(10,8) DEFAULT '0.00000000',
+  `email_1` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `codemgt` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `proitem_id` int DEFAULT NULL,
+  `WORK_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `done` int DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38470 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `collections` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `office_id` int NOT NULL,
+  `road_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `road_type` enum('NH','SH','MDR','ODR','VR','Street') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `length` decimal(6,3) NOT NULL,
+  `ownership` enum('PWD','MORTH','NHAI','Nagar Nigam','Nagar Palika','Other','Irrigation') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Other',
+  `city_name` enum('Dehradun','Rudrpur','Mussorie','Nanital','Roorkee','Rishikesh','Kashipur','Haridwar','Haldwani','Khatima') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `contractor_categories` (
+  `category_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`category_id`) USING BTREE,
+  UNIQUE KEY `categories_Names` (`category_name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+
+CREATE TABLE `contractor_classes` (
+  `class_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `class_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`class_id`) USING BTREE,
+  UNIQUE KEY `categories_Names` (`class_name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+
+CREATE TABLE `contractor_registrations` (
+  `registration_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `registor_for` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `registration_date` date DEFAULT NULL,
+  `validity_date` date DEFAULT NULL,
+  `is_active` tinyint DEFAULT NULL,
+  `created_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `hr_office_id` int DEFAULT NULL,
+  `ee_office_id` int DEFAULT NULL,
+  `office_type` tinyint DEFAULT NULL,
+  `office_id` int DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `contractor_id` int DEFAULT NULL,
+  PRIMARY KEY (`registration_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `contractors` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `gstn` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `contact_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `is_active` tinyint DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `no_of_registration` int DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `owners` json DEFAULT NULL,
+  `authorize_signatory_no` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `org_type` tinyint NOT NULL DEFAULT '1' COMMENT '0 unknown, 1 contractor 2 lab 3 consultant',
+  PRIMARY KEY (`pan`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34806 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+
+CREATE TABLE `demand_backups` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `work_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `demand` double DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32403 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `designations` (
+  `id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `short_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT '1',
+  `sort_order` int DEFAULT NULL,
+  `group_id` tinyint DEFAULT '0',
+  `section` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'D',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `designations_tresury` (
+  `id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `short_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `group_id` tinyint DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `districts` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_h` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `division_monthly_target_achievements` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `financial_head_id` int NOT NULL,
+  `ee_office_id` int NOT NULL,
+  `fin_year` int NOT NULL,
+  `works` int DEFAULT '0',
+  `awantan` decimal(10,2) DEFAULT '0.00',
+  `spillover` decimal(10,2) DEFAULT '0.00',
+  `new_work_no` int DEFAULT '0',
+  `new_work_cost` decimal(10,2) DEFAULT '0.00',
+  `t4` decimal(10,2) DEFAULT '0.00',
+  `t5` decimal(10,2) DEFAULT '0.00',
+  `t6` decimal(10,2) DEFAULT '0.00',
+  `t7` decimal(10,2) DEFAULT '0.00',
+  `t8` decimal(10,2) DEFAULT '0.00',
+  `t9` decimal(10,2) DEFAULT '0.00',
+  `t10` decimal(10,2) DEFAULT '0.00',
+  `t11` decimal(10,2) DEFAULT '0.00',
+  `t12` decimal(10,2) DEFAULT '0.00',
+  `t1` decimal(10,2) DEFAULT '0.00',
+  `t2` decimal(10,2) DEFAULT '0.00',
+  `t3` decimal(10,2) DEFAULT '0.00',
+  `a4` decimal(10,2) DEFAULT '0.00',
+  `a5` decimal(10,2) DEFAULT '0.00',
+  `a6` decimal(10,2) DEFAULT '0.00',
+  `a7` decimal(10,2) DEFAULT '0.00',
+  `a8` decimal(10,2) DEFAULT '0.00',
+  `a9` decimal(10,2) DEFAULT '0.00',
+  `a10` decimal(10,2) DEFAULT '0.00',
+  `a11` decimal(10,2) DEFAULT '0.00',
+  `a12` decimal(10,2) DEFAULT '0.00',
+  `a1` decimal(10,2) DEFAULT '0.00',
+  `a2` decimal(10,2) DEFAULT '0.00',
+  `a3` decimal(10,2) DEFAULT '0.00',
+  `created_at` datetime DEFAULT NULL,
+  `target_updated_at` datetime DEFAULT NULL,
+  `target_updated_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `achivement_updated_at` datetime DEFAULT NULL,
+  `achivement_updated_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=507 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `document_types` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `view_lvl` tinyint(1) DEFAULT '0',
+  `mime_allowed` tinyint DEFAULT '0' COMMENT '0=all,1=kml,2=photo/pdf,3=photo,4=video',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `documents` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `WORK_code` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `doctype_id` int NOT NULL DEFAULT '1',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` int NOT NULL DEFAULT '1',
+  `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `uploaded_by` int DEFAULT NULL,
+  `lat` decimal(10,8) DEFAULT NULL,
+  `lng` decimal(10,8) DEFAULT NULL,
+  `doe` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=858 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `ee_offices` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `se_office_id` int unsigned NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_h` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `addresss` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_no` bigint DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `phyper` double DEFAULT '0',
+  `finper` double DEFAULT '0',
+  `rank` double DEFAULT '0',
+  `is_exist` tinyint(1) DEFAULT '1',
+  `hr_office_id` int DEFAULT '0',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `tressury_code` smallint(4) unsigned zerofill DEFAULT '0000',
+  `ddo_code` smallint(4) unsigned zerofill DEFAULT '0000',
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `head_emp_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_2` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lat` decimal(10,8) unsigned zerofill DEFAULT '00.00000000',
+  `lon` decimal(10,8) unsigned zerofill DEFAULT '00.00000000',
+  `all_related_users` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `is_pwd` tinyint(1) DEFAULT '1',
+  `period_category` tinyint DEFAULT '1',
+  `div_type` tinyint(1) DEFAULT '0' COMMENT '0=unknown,1=civil,2=nh,3=adb,4=wb,5=pmgsy',
+  PRIMARY KEY (`id`),
+  KEY `ee_offices_se_office_id_foreign` (`se_office_id`),
+  CONSTRAINT `ee_offices_se_office_id_foreign` FOREIGN KEY (`se_office_id`) REFERENCES `se_offices` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `emp_history` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `emp_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `office_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mode` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `from` date DEFAULT NULL,
+  `to` date DEFAULT NULL,
+  `days` int DEFAULT NULL,
+  `year` int DEFAULT NULL,
+  `month` int DEFAULT NULL,
+  `day` int DEFAULT NULL,
+  `period_category` tinyint DEFAULT NULL,
+  `missing` int DEFAULT '1',
+  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `office_id` smallint DEFAULT '0',
+  `office_type` tinyint DEFAULT '0',
+  `duration_factor` decimal(3,2) DEFAULT '1.00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=315683 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `employeesmis` (
+  `id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_no` bigint DEFAULT NULL,
+  `phone_no1` bigint DEFAULT NULL,
+  `chat_id` bigint DEFAULT NULL,
+  `chat_id1` bigint DEFAULT NULL,
+  `office_type` tinyint(1) DEFAULT '0' COMMENT '1=ce,2=se,3=ee,0=enc',
+  `office_id` int DEFAULT NULL,
+  `office_idd` int DEFAULT '1',
+  `father_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `joining_date` date DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `retirement_date` date DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `designation_id` smallint DEFAULT '0',
+  `gender` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `h_district` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `h_state` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `h_tahsil` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `c_email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `c_mobile` bigint DEFAULT NULL,
+  `s_y` int DEFAULT NULL,
+  `s_m` int DEFAULT NULL,
+  `s_d` int DEFAULT NULL,
+  `s_t` int DEFAULT NULL,
+  `d_y` int DEFAULT NULL,
+  `d_m` int DEFAULT NULL,
+  `d_d` int DEFAULT NULL,
+  `d_t` int DEFAULT NULL,
+  `last_office_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_office_type` tinyint(1) DEFAULT NULL,
+  `orignal_office_days` int DEFAULT NULL,
+  `orignal_office_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `orignal_office_type` tinyint(1) DEFAULT NULL,
+  `durgam_days_reduction` int DEFAULT '0',
+  `is_locked` tinyint(1) DEFAULT '0',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_prabhari` tinyint DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_assets` (
+  `id` int DEFAULT NULL,
+  `instance_estimate_id` int DEFAULT NULL,
+  `type` tinyint DEFAULT NULL,
+  `asset_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_blocks` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `instance_estimate_id` int NOT NULL,
+  `block_id` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1172 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_constituencies` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `instance_estimate_id` int NOT NULL,
+  `constituency_id` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_documents` (
+  `id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `instance_estimate_id` int NOT NULL,
+  `doctype_id` int NOT NULL DEFAULT '1',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` int NOT NULL DEFAULT '1',
+  `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `uploaded_by` int DEFAULT NULL,
+  `doe` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_feature_groups` (
+  `id` int NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_feature_types` (
+  `id` int NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `rate` decimal(12,3) DEFAULT NULL,
+  `unit` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `group_id` int DEFAULT NULL,
+  `serial` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_features` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `instance_estimate_id` int NOT NULL,
+  `estimate_group_id` tinyint NOT NULL DEFAULT '0',
+  `estimate_feature_type_id` int NOT NULL,
+  `rate` decimal(10,3) NOT NULL,
+  `qty` decimal(10,3) NOT NULL,
+  `cost` decimal(10,3) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_groups` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `instance_estimate_id` int NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_ulb` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `instance_estimate_id` int NOT NULL,
+  `ulb_id` int NOT NULL,
+  `wards` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `estimate_village` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `instance_estimate_id` int NOT NULL,
+  `village_id` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `exception_logs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) NOT NULL COMMENT '1=telegram',
+  `message` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=363 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `failed_jobs_mis` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=302 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `filter_fields` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_h` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `operator_allowed` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tbl` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `type` tinyint(1) DEFAULT '2' COMMENT '1=categorial,2=value',
+  `datetype` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `financial_heads` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name_h` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `anudaan_no` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_active` int DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `scheme_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `grant_no` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `forest_msgs` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status_date` date DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `forest_proposal_id` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `counter` int DEFAULT '0',
+  `is_active` tinyint(1) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5808 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `forest_portal_ids` (
+  `id` int NOT NULL,
+  `ee_office_id` int DEFAULT NULL,
+  `is_relevent` tinyint(1) DEFAULT '1' COMMENT '1= relevent,0=not relevent',
+  `cases_in_parivesh` int DEFAULT '0',
+  `cases_in_mis` int DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `forest_proposals` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `WORK_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `area` decimal(8,2) DEFAULT NULL,
+  `tree` int DEFAULT NULL,
+  `forest_division` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kml_file` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `users_for_notification` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'comma seperated value of user id',
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status_date` date DEFAULT NULL,
+  `onlineuserid` int DEFAULT NULL,
+  `user_agency_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_from_ua_to_nodal` date DEFAULT NULL,
+  `date_of_recomm` date DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  `timeline_updated_at` datetime DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `ta_on` date DEFAULT NULL,
+  `fa_on` date DEFAULT NULL,
+  `parivesh_version` int DEFAULT NULL,
+  `parivesh_data` json DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=54048045 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `forest_status_items` (
+  `id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_h` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `rank` smallint DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `forest_timelines` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `forest_proposal_id` int DEFAULT NULL,
+  `doe` date DEFAULT NULL,
+  `level` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `action` tinyint(1) DEFAULT NULL,
+  `sortorder` int DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60990 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `forest_trans` (
+  `WORK_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doe` date DEFAULT NULL,
+  `fcategory` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `farea` double DEFAULT NULL,
+  `under` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_by` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `lastdata` tinyint(1) DEFAULT '0',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  KEY `hab_code` (`WORK_code`),
+  KEY `{C0D7E187-3DF9-48A2-960E-CCC15B956596}` (`WORK_code`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15813 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `formjs` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `bond_id` int DEFAULT NULL,
+  `bill_no` int DEFAULT NULL,
+  `uploader_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `starttime` datetime DEFAULT NULL,
+  `registration_no` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fornjno` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vehicle_no` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mineral` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `weight` decimal(10,2) DEFAULT NULL,
+  `unit` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `form_date` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `is_duplicate` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=356354 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `fy_plans` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `bond_phy_target_id` bigint NOT NULL,
+  `component_id` int DEFAULT NULL,
+  `bond_id` int DEFAULT NULL,
+  `WORK_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fy` int NOT NULL DEFAULT '2022',
+  `t1` decimal(10,3) DEFAULT '0.000',
+  `t2` decimal(10,3) DEFAULT '0.000',
+  `t3` decimal(10,3) DEFAULT '0.000',
+  `t4` decimal(10,3) DEFAULT '0.000',
+  `t5` decimal(10,3) DEFAULT '0.000',
+  `t6` decimal(10,3) DEFAULT '0.000',
+  `t7` decimal(10,3) DEFAULT '0.000',
+  `t8` decimal(10,3) DEFAULT '0.000',
+  `t9` decimal(10,3) DEFAULT '0.000',
+  `t10` decimal(10,3) DEFAULT '0.000',
+  `t11` decimal(10,3) DEFAULT '0.000',
+  `t12` decimal(10,3) DEFAULT '0.000',
+  `ta1` decimal(10,0) DEFAULT '0',
+  `ta2` decimal(10,0) DEFAULT '0',
+  `ta3` decimal(10,0) DEFAULT '0',
+  `ta4` decimal(10,0) DEFAULT '0',
+  `ta5` decimal(10,0) DEFAULT '0',
+  `ta6` decimal(10,0) DEFAULT '0',
+  `ta7` decimal(10,0) DEFAULT '0',
+  `ta8` decimal(10,0) DEFAULT '0',
+  `ta9` decimal(10,0) DEFAULT '0',
+  `ta10` decimal(10,0) DEFAULT '0',
+  `ta11` decimal(10,0) DEFAULT '0',
+  `ta12` decimal(10,0) DEFAULT '0',
+  `aa12` decimal(10,0) DEFAULT '0',
+  `aa11` decimal(10,0) DEFAULT '0',
+  `aa10` decimal(10,0) DEFAULT '0',
+  `aa9` decimal(10,0) DEFAULT '0',
+  `aa8` decimal(10,0) DEFAULT '0',
+  `aa7` decimal(10,0) DEFAULT '0',
+  `aa6` decimal(10,0) DEFAULT '0',
+  `aa5` decimal(10,0) DEFAULT '0',
+  `aa4` decimal(10,0) DEFAULT '0',
+  `aa3` decimal(10,0) DEFAULT '0',
+  `aa2` decimal(10,0) DEFAULT '0',
+  `aa1` decimal(10,0) DEFAULT '0',
+  `a12` decimal(10,3) DEFAULT '0.000',
+  `a11` decimal(10,3) DEFAULT '0.000',
+  `a10` decimal(10,3) DEFAULT '0.000',
+  `a9` decimal(10,3) DEFAULT '0.000',
+  `a8` decimal(10,3) DEFAULT '0.000',
+  `a7` decimal(10,3) DEFAULT '0.000',
+  `a6` decimal(10,3) DEFAULT '0.000',
+  `a5` decimal(10,3) DEFAULT '0.000',
+  `a4` decimal(10,3) DEFAULT '0.000',
+  `a3` decimal(10,3) DEFAULT '0.000',
+  `a2` decimal(10,3) DEFAULT '0.000',
+  `a1` decimal(10,3) DEFAULT '0.000',
+  PRIMARY KEY (`bond_phy_target_id`,`fy`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `geometry_columns` (
+  `F_TABLE_CATALOG` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `F_TABLE_SCHEMA` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `F_TABLE_NAME` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `F_GEOMETRY_COLUMN` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `COORD_DIMENSION` int DEFAULT NULL,
+  `SRID` int DEFAULT NULL,
+  `TYPE` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `ifms_allotments` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `financial_head_id` int NOT NULL,
+  `ee_office_id` int NOT NULL,
+  `doe` date NOT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  PRIMARY KEY (`financial_head_id`,`ee_office_id`,`doe`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `ifms_demands` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `financial_head_id` int NOT NULL,
+  `ee_office_id` int NOT NULL,
+  `doe` date NOT NULL,
+  `amount` decimal(8,2) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `LAST` int DEFAULT NULL,
+  PRIMARY KEY (`financial_head_id`,`ee_office_id`,`doe`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `instance_estimates` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `instance_id` int NOT NULL,
+  `district_id` int DEFAULT NULL,
+  `block_id` int DEFAULT NULL,
+  `constituency_id` int DEFAULT NULL,
+  `loksabha_id` int DEFAULT NULL,
+  `worktype_id` int DEFAULT NULL,
+  `road_length` int DEFAULT NULL,
+  `bridge_no` int DEFAULT NULL,
+  `bridge_span` int DEFAULT NULL,
+  `building_no` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `estimate_cost` int DEFAULT NULL,
+  `other_Remark` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `reference_no` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci,
+  `ee_office_id` int NOT NULL,
+  `WORK_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `new_Work_Code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `due_to` tinyint DEFAULT '0' COMMENT '0=no reference, 1=MLA, 2=MP, 3=DM, 4=SRMD, 5=PR, 6=SR, 7=Higher Officer, 8=Against GO',
+  `objective` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `completion_months` int DEFAULT NULL,
+  `tsc_cost` decimal(10,2) DEFAULT NULL COMMENT 'in lacs by TSC',
+  `ta_cost` decimal(10,2) DEFAULT NULL COMMENT 'in lacs by Advisor',
+  `provisions` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT 'brief description about provisions',
+  `land_availabilty` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `land_type` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `land_area` decimal(10,2) DEFAULT NULL,
+  `connectivity_status` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `villages` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `urban` tinyint DEFAULT '0',
+  `efc_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1148 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `instance_histories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `instance_id` int NOT NULL,
+  `from_id` int DEFAULT NULL,
+  `to_id` int DEFAULT NULL,
+  `emp_code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `emp_name` varbinary(255) DEFAULT NULL,
+  `designation` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `office` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `remarks` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `action_taken` int DEFAULT NULL,
+  `isViewed` bit(1) DEFAULT b'0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `instance_types` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_h` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `instances` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `instance_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `status_master_id` int NOT NULL DEFAULT '1',
+  `instance_type_id` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `instance_pending_with_user_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `issue_event_notifications` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `bond_issue_event_id` int DEFAULT NULL,
+  `notification_on` datetime NOT NULL,
+  `through` tinyint NOT NULL DEFAULT '1' COMMENT '1=mail',
+  `notification_type` tinyint NOT NULL COMMENT '1=submit',
+  `notification_no` tinyint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unit` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '1' COMMENT '1',
+  PRIMARY KEY (`id`,`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `je_work` (
+  `je_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `WORK_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`je_id`,`WORK_code`),
+  KEY `{792E4E6D-38AD-4249-B9D7-04010CD0BAE1}` (`je_id`),
+  KEY `JE_WORK_JNWORK_code` (`WORK_code`),
+  KEY `JE_WORK_JNJE_code` (`je_id`),
+  KEY `mas_worksJE_WORK_JN` (`WORK_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `jes` (
+  `ee_office_id` int DEFAULT NULL,
+  `id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_h` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `JE_Add` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `JE_ph` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unique_id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `v-llage_code` (`id`),
+  KEY `gp_code` (`ee_office_id`),
+  KEY `unique_id` (`unique_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2416 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `jobs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint unsigned NOT NULL,
+  `reserved_at` int unsigned DEFAULT NULL,
+  `available_at` int unsigned NOT NULL,
+  `created_at` int unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jobs_queue_index` (`queue`)
+) ENGINE=InnoDB AUTO_INCREMENT=1990 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `jobs_mis` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint unsigned NOT NULL,
+  `reserved_at` int unsigned DEFAULT NULL,
+  `available_at` int unsigned NOT NULL,
+  `created_at` int unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jobs_queue_index` (`queue`)
+) ENGINE=InnoDB AUTO_INCREMENT=1709 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `laboratories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_no` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '1' COMMENT '1',
+  `type` int NOT NULL DEFAULT '1' COMMENT '1 site field lab, 2 Division Lab, 3 Departmental Lab, 4 Identified Lab',
+  `pan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'if 4 then it should be',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `letter_info` (
+  `lid` int unsigned NOT NULL AUTO_INCREMENT,
+  `date_of_letter` date DEFAULT NULL,
+  `letter_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `letter_file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`lid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `liabilities` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `office_id` int NOT NULL,
+  `detail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bond_id` int NOT NULL DEFAULT '0',
+  `WORK_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doe` date NOT NULL,
+  `STATUS` tinyint NOT NULL DEFAULT '0' COMMENT '0=live, 1-paid,2=wrong data,3 not required',
+  `expenditure_type_id` tinyint NOT NULL DEFAULT '0',
+  `amount` decimal(10,0) NOT NULL DEFAULT '0',
+  `created_by` int NOT NULL DEFAULT '1',
+  `updated_by` int NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `login_tokens` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokentype` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `consumed_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `login_tokens_user_id_foreign` (`user_id`),
+  CONSTRAINT `login_tokens_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=795 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `logs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `log_date` datetime NOT NULL,
+  `table_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `log_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14659 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `loksabhas` (
+  `id` int DEFAULT NULL,
+  `constituency_id` int DEFAULT NULL,
+  `name` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_h` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `m_instance_status` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_h` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instance_type_id` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `map_off_mis_hr` (
+  `mis_id` int DEFAULT NULL,
+  `hr_id` int DEFAULT NULL,
+  `office_type` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `migrations` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `nabard_updates` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `WORK_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `event` date NOT NULL,
+  `current_status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `existing_status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `tranche` int NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `db_status_updated_on` datetime DEFAULT NULL,
+  PRIMARY KEY (`WORK_code`,`event`,`tranche`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=808 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `nabard_work_details` (
+  `WORK_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `picno` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `closest_pic_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_of_loan` date DEFAULT NULL,
+  `balaced_cost_at_start` decimal(10,0) DEFAULT '0',
+  `ridf_loan` decimal(10,0) DEFAULT '0',
+  `advance` decimal(10,0) DEFAULT '0',
+  `nabard_share_in_allotment` decimal(10,0) DEFAULT '0',
+  `disburshment_total` decimal(10,0) DEFAULT '0',
+  `advance_recovery_total` decimal(10,0) DEFAULT '0',
+  `pcc_at` date DEFAULT NULL,
+  `pcr_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `legacy_expenditure` decimal(10,0) DEFAULT '0',
+  `nabard_expenditure` decimal(10,0) DEFAULT '0',
+  `status` enum('In Progress','Completed','PCR in Process','PCR Submitted','PCC Submitted','PCC in Process','To Cancel','Canceled') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'In Progress' COMMENT '0=progress, 1=to cancel, 2-canceled, 3=comlete,4=pcr sent, 5=pcr by field',
+  `tranche` int DEFAULT '0',
+  `project_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `tfo` decimal(15,0) DEFAULT NULL,
+  `maintenance` decimal(15,0) DEFAULT NULL,
+  PRIMARY KEY (`picno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `notifications` (
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_id` int unsigned NOT NULL,
+  `notifiable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notifications_notifiable_id_notifiable_type_index` (`notifiable_id`,`notifiable_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

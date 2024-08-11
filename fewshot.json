@@ -1,0 +1,44 @@
+{
+    "fewshots_examples": [
+        {
+            "input": "How can we identify AEs who are not assigned to any works? ",
+            "query": "SELECT `name` FROM `aes` WHERE `id` NOT IN (SELECT DISTINCT `AE_code` FROM `ae_work`);"
+        },
+        {
+            "input": "Get the Last Audit Log Entry for Each User",
+            "query": "SELECT `audit_logs`.`user_id`, MAX(`audit_logs`.`created_at`) AS `last_audit_date`, `users`.`name` FROM `audit_logs` JOIN `users` ON `audit_logs`.`user_id` = `users`.`id` GROUP BY `audit_logs`.`user_id` ORDER BY `last_audit_date` DESC;"
+        },
+        {
+            "input": "no of work which are currently active.",
+            "query": "SELECT COUNT(WORK_code) AS no_of_works FROM mispwd.work_dashboards WHERE work_dashboards.worktaken=1;"
+        },
+        {
+            "input": "total no of live works in PD Almora and CD Ranikhet",
+            "query": "SELECT COUNT(WORK_code) AS no_of_works FROM mispwd.work_dashboards WHERE ee_office_id in ( SELECT ee_offices.id FROM mispwd.ee_offices WHERE `name` in ('PD Almora','CD Ranikhet ')) and work_dashboards.worktaken=1;"
+        },
+        {
+            "input": "no of live works where sanction cost is more then or equal to 2 cr  .",
+            "query": "SELECT COUNT(WORK_code) AS no_of_works FROM mispwd.work_dashboards WHERE work_dashboards.worktaken=1 AND work_dashboards.SCOST>=200;"
+        },
+        {
+            "input": "list of work's name in nabard 28 yozana of EE office pd almora",
+            "query": "SELECT work_dashboards.`WORK_name` FROM mispwd.work_dashboards WHERE yozana_id = ( SELECT yozanas.id FROM mispwd.yozanas WHERE yozanas.`name` = 'NABARD 28') AND ee_office_id = ( SELECT ee_offices.id FROM mispwd.ee_offices WHERE ee_offices.`name` = 'PD Almora') ;"
+        },
+        {
+            "input": "no of live works in EE office CD ranikhet ",
+            "query": "SELECT COUNT(WORK_code) AS no_of_works FROM mispwd.work_dashboards WHERE ee_office_id = ( SELECT id  FROM mispwd.ee_offices WHERE name = 'CD Ranikhet') AND work_dashboards.worktaken = 1 ;"
+        },
+        {
+            "input": "WORK_code of last five work sanctioned after 15 March 2024.",
+            "query": "SELECT `WORK_code` FROM `work_details` WHERE `AA_DATE` >= '2024-03-15' ORDER BY `AA_DATE` DESC LIMIT 5"
+        },
+        {
+            "input": "total no of live works in PD Almora and CD Ranikhet",
+            "query": "SELECT * FROM `ee_offices`;"
+        },
+        {
+            "input": "total no of live works in PD Almora and CD Ranikhet",
+            "query": "SELECT COUNT(*) FROM `ee_offices` WHERE `name` IN ('PD Almora', 'CD Ranikhet') AND `is_exist` = 1"
+        }
+    ]
+}
