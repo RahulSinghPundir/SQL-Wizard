@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Text to SQL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="form_container">
+        <h1> Text to SQL</h1>
+        {%if error!=""%}
+            <div class="error-alert" role="alert">
+                {{error_message}}
+            </div><br>
+        {%endif%}
+        <form action="/submit_db_details" method="POST">
+            <label for="google_api">Google Api</label><br>
+            <input type="text" id="google_api" name="google_api"><br>
+
+            <label for="db_user">Database user</label><br>
+            <input type="text" id="db_user" name="db_user"><br>
+
+            <label for="db_password">Database Password</label><br>
+            <input type="text" id="db_password" name="db_password"><br>
+
+            <label for="db_host">Database Host</label><br>
+            <input type="text" id="db_host" name="db_host"><br>
+
+            <label for="db_name">Database Name</label><br>
+            <input type="text" id="db_name" name="db_name"><br>
+
+            <button type="Submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
