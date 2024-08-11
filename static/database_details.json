@@ -1,0 +1,1102 @@
+{
+    "Tables": [
+        {
+            "name": "ee_offices",
+            "description": "Stores the data of EE offices.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "se_office_id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "FOREIGN KEY",
+                        "REFERENCES se_offices(id)"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "name_h",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "address",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "district",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "contact_no",
+                    "type": "bigint",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "updated_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "phyper",
+                    "type": "double",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "finper",
+                    "type": "double",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "rank",
+                    "type": "double",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "is_exist",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        "DEFAULT '1'"
+                    ]
+                },
+                {
+                    "name": "hr_office_id",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "deleted_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "tressury_code",
+                    "type": "smallint(4) unsigned zerofill",
+                    "constraints": [
+                        "DEFAULT '0000'"
+                    ]
+                },
+                {
+                    "name": "ddo_code",
+                    "type": "smallint(4) unsigned zerofill",
+                    "constraints": [
+                        "DEFAULT '0000'"
+                    ]
+                },
+                {
+                    "name": "email",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "head_emp_code",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "email_2",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "lat",
+                    "type": "decimal(10,8) unsigned zerofill",
+                    "constraints": [
+                        "DEFAULT '00.00000000'"
+                    ]
+                },
+                {
+                    "name": "lon",
+                    "type": "decimal(10,8) unsigned zerofill",
+                    "constraints": [
+                        "DEFAULT '00.00000000'"
+                    ]
+                },
+                {
+                    "name": "all_related_users",
+                    "type": "text",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci"
+                    ]
+                },
+                {
+                    "name": "is_pwd",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        "DEFAULT '1'"
+                    ]
+                },
+                {
+                    "name": "period_category",
+                    "type": "tinyint",
+                    "constraints": [
+                        "DEFAULT '1'"
+                    ]
+                },
+                {
+                    "name": "div_type",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        "DEFAULT '0'",
+                        "COMMENT '0=unknown",
+                        "1=civil",
+                        "2=nh",
+                        "3=adb",
+                        "4=wb",
+                        "5=pmgsy'"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "emp_history",
+            "description": "Stores the history of employees.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "emp_code",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "office_name",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "mode",
+                    "type": "varchar(100)",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci",
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "from",
+                    "type": "date",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "to",
+                    "type": "date",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "days",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "year",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "month",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "day",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "period_category",
+                    "type": "tinyint",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "missing",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT '1'"
+                    ]
+                },
+                {
+                    "name": "remark",
+                    "type": "text",
+                    "constraints": [
+                        "CHARACTER SET utf8mb4",
+                        "COLLATE utf8mb4_unicode_ci"
+                    ]
+                },
+                {
+                    "name": "office_id",
+                    "type": "smallint",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "office_type",
+                    "type": "tinyint",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "duration_factor",
+                    "type": "decimal(3,2)",
+                    "constraints": [
+                        "DEFAULT '1.00'"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "employeesmis",
+            "description": "It stores the data of employees.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar(100)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "phone_no",
+                    "type": "bigint",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "phone_no1",
+                    "type": "bigint",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "chat_id",
+                    "type": "bigint",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "chat_id1",
+                    "type": "bigint",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "office_type",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        "DEFAULT '0'",
+                        "COMMENT '1=ce",
+                        "2=se",
+                        "3=ee",
+                        "0=enc'"
+                    ]
+                },
+                {
+                    "name": "office_id",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "office_idd",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT '1'"
+                    ]
+                },
+                {
+                    "name": "father_name",
+                    "type": "varchar(100)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "joining_date",
+                    "type": "date",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "birth_date",
+                    "type": "date",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "retirement_date",
+                    "type": "date",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "updated_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "designation_id",
+                    "type": "smallint",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "gender",
+                    "type": "varchar(6)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "h_district",
+                    "type": "varchar(25)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "h_state",
+                    "type": "varchar(25)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "h_tahsil",
+                    "type": "varchar(25)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "c_email",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "c_mobile",
+                    "type": "bigint",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "s_y",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "s_m",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "s_d",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "s_t",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "d_y",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "d_m",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "d_d",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "d_t",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "last_office_name",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "last_office_type",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "orignal_office_days",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "orignal_office_name",
+                    "type": "varchar(50)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "orignal_office_type",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "durgam_days_reduction",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "is_locked",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                },
+                {
+                    "name": "password",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "remember_token",
+                    "type": "varchar(100)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "is_prabhari",
+                    "type": "tinyint",
+                    "constraints": [
+                        "DEFAULT '0'"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_blocks",
+            "description": "It stores the data of estimate blocks.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "instance_estimate_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "block_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "updated_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        ""
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_constituencies",
+            "description": "It stores the data of estimate constituencies.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "instance_estimate_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "constituency_id",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "updated_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        ""
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_documents",
+            "description": "It stores the data of estimate documents.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int(10) unsigned zerofill",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "instance_estimate_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "doctype_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL",
+                        "DEFAULT '1'"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar(100)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "version",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL",
+                        "DEFAULT '1'"
+                    ]
+                },
+                {
+                    "name": "address",
+                    "type": "varchar(200)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "description",
+                    "type": "text",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "is_active",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        "NOT NULL",
+                        "DEFAULT '1'"
+                    ]
+                },
+                {
+                    "name": "updated_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "uploaded_by",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "doe",
+                    "type": "datetime",
+                    "constraints": [
+                        ""
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_feature_groups",
+            "description": "It stores the data of estimate feature groups.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "text",
+                    "constraints": [
+                        ""
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_feature_types",
+            "description": "It stores the data of estimate feature types.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "text",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "rate",
+                    "type": "decimal(12,3)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "unit",
+                    "type": "varchar(150)",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "group_id",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "serial",
+                    "type": "int",
+                    "constraints": [
+                        ""
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_features",
+            "description": "Stores individual features associated with estimates.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "instance_estimate_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "estimate_group_id",
+                    "type": "tinyint",
+                    "constraints": [
+                        "NOT NULL DEFAULT"
+                    ]
+                },
+                {
+                    "name": "estimate_feature_type_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "rate",
+                    "type": "decimal(10,3)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "qty",
+                    "type": "decimal(10,3)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "cost",
+                    "type": "decimal(10,3)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "datetime",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "remark",
+                    "type": "text",
+                    "constraints": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "created_by",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "updated_by",
+                    "type": "int",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_groups",
+            "description": "Stores groups associated with estimates.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "instance_estimate_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "text",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_ulb",
+            "description": "Stores ULB (Urban Local Body) related to estimates.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "instance_estimate_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "ulb_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "wards",
+                    "type": "varchar(200)",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "estimate_village",
+            "description": "Stores villages related to estimates.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "instance_estimate_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "village_id",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "exception_logs",
+            "description": "Stores logs for exceptions.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "bigint unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "type",
+                    "type": "tinyint(1)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "message",
+                    "type": "varchar(200)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                },
+                {
+                    "name": "updated_at",
+                    "type": "timestamp",
+                    "constraints": [
+                        "DEFAULT NULL"
+                    ]
+                }
+            ]
+        }
+    ]
+}

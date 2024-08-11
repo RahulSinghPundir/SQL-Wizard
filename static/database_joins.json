@@ -1,0 +1,229 @@
+{
+    "Joins": [
+        {
+            "name": "bond_issue_events",
+            "models": [
+                "bond_issue_types",
+                "bond_issue_events"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "bond_issue_types.id = bond_issue_events.bond_issue_type_id"
+        },
+        {
+            "name": "bond_issue_types",
+            "models": [
+                "bond_targets",
+                "bond_issue_types"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "bond_targets.bond_id = bond_issue_types.bond_id"
+        },
+        {
+            "name": "bond_phy_target_baselines",
+            "models": [
+                "bond_phy_targets",
+                "bond_phy_target_baselines"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "bond_phy_targets.WORK_code = bond_phy_target_baselines.WORK_code AND bond_phy_targets.bond_id = bond_phy_target_baselines.bond_id AND bond_phy_targets.component_id = bond_phy_target_baselines.component_id"
+        },
+        {
+            "name": "bond_phy_targets",
+            "models": [
+                "bond_targets",
+                "bond_phy_targets"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "bond_targets.bond_id = bond_phy_targets.bond_id AND bond_targets.WORK_code = bond_phy_targets.WORK_code"
+        },
+        {
+            "name": "bond_progress",
+            "models": [
+                "bond_targets",
+                "bond_progress"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "bond_targets.bond_id = bond_progress.bond_id AND bond_targets.WORK_code = bond_progress.WORK_code"
+        },
+        {
+            "name": "bond_targets",
+            "models": [
+                "works",
+                "bond_targets"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = bond_targets.WORK_code"
+        },
+        {
+            "name": "ee_offices",
+            "models": [
+                "ee_offices",
+                "se_offices"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "ee_offices.se_office_id = se_offices.id"
+        },
+        {
+            "name": "emp_history",
+            "models": [
+                "emp_history",
+                "employeesmis"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "emp_history.emp_code = employeesmis.id"
+        },
+        {
+            "name": "estimate_assets",
+            "models": [
+                "estimate_assets",
+                "estimate_groups"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "estimate_assets.instance_estimate_id = estimate_groups.id"
+        },
+        {
+            "name": "estimate_blocks",
+            "models": [
+                "estimate_blocks",
+                "estimate_groups"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "estimate_blocks.instance_estimate_id = estimate_groups.id"
+        },
+        {
+            "name": "estimate_constituencies",
+            "models": [
+                "estimate_constituencies",
+                "estimate_groups"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "estimate_constituencies.instance_estimate_id = estimate_groups.id"
+        },
+        {
+            "name": "estimate_documents",
+            "models": [
+                "estimate_documents",
+                "estimate_groups"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "estimate_documents.instance_estimate_id = estimate_groups.id"
+        },
+        {
+            "name": "estimate_features",
+            "models": [
+                "estimate_features",
+                "estimate_feature_types"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "estimate_features.estimate_feature_type_id = estimate_feature_types.id"
+        },
+        {
+            "name": "estimate_groups",
+            "models": [
+                "estimate_groups",
+                "estimate_assets"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "estimate_groups.instance_estimate_id = estimate_assets.instance_estimate_id"
+        },
+        {
+            "name": "estimate_ulb",
+            "models": [
+                "estimate_ulb",
+                "estimate_groups"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "estimate_ulb.instance_estimate_id = estimate_groups.id"
+        },
+        {
+            "name": "estimate_village",
+            "models": [
+                "estimate_village",
+                "estimate_groups"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "estimate_village.instance_estimate_id = estimate_groups.id"
+        },
+        {
+            "name": "work_dashboards",
+            "models": [
+                "works",
+                "work_types"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = work_dashboards.WORK_code"
+        },
+        {
+            "name": "work_exp_temps",
+            "models": [
+                "works",
+                "work_exp_temps"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = work_exp_temps.WORK_code"
+        },
+        {
+            "name": "work_exps",
+            "models": [
+                "works",
+                "work_exps"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = work_exps.WORK_code"
+        },
+        {
+            "name": "work_milestones",
+            "models": [
+                "works",
+                "work_milestone_types"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = work_milestones.WORK_code"
+        },
+        {
+            "name": "work_milestones",
+            "models": [
+                "work_milestones",
+                "work_milestone_types"
+            ],
+            "joinType": "MANY_TO_ONE",
+            "condition": "work_milestones.work_milestone_type_id = work_milestone_types.id"
+        },
+        {
+            "name": "work_phy_targets",
+            "models": [
+                "works",
+                "work_phy_targets"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = work_phy_targets.WORK_code"
+        },
+        {
+            "name": "work_remove_from_mis_histories",
+            "models": [
+                "works",
+                "work_remove_from_mis_histories"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = work_remove_from_mis_histories.WORK_code"
+        },
+        {
+            "name": "work_status_backups",
+            "models": [
+                "works",
+                "work_status_backups"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = work_status_backups.work_code"
+        },
+        {
+            "name": "work_to_notify",
+            "models": [
+                "works",
+                "work_to_notify"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "works.WORK_code = work_to_notify.WORK_code"
+        }
+    ]
+}
