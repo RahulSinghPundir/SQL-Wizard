@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Text to SQL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar for chat sessions -->
+        <div class="sidebar">
+            <h2>Chats</h2>
+            <button id="new-chat-button" aria-label="Start a new chat">New Chat</button>
+            <ul id="chat-list">
+                {% for chat_id, chat in chat_sessions.items() %}
+                    <li data-chat-id="{{ chat_id }}">{{ chat.messages[-1]['user_input'] if chat.messages else 'New Chat' }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Main content area for chat messages -->
+        <div class="content">
+            <h1> Text to SQL</h1>
+            <div id="button-container">
+                <button id="summary-button" aria-label="Show summary">Show Summary</button>
+                <label class="switch">
+                    <input type="checkbox" id="personalize-toggle">
+                    <span class="slider round"><span class="switch-text">Use Personalized Data</span></span>
+                </label>
+                <button id="show-database-button" aria-label="Show database details">Show Database Details</button>
+            </div>
+            
+            
+            <div id="chat-container">
+                {% for chat_id, chat in chat_sessions.items() %}
+                    {% if chat_id == session.get('current_chat') %}
+                        {% for message in chat['messages'] %}
+                            <div class="chat-message user-message">
+                                <p>{{ message.user_input }}</p>
+                            </div>
+                            <div class="chat-message assistant-message">
+                                <p>{{ message.result.answer }}</p>
+                                <button class="correct-button" data-user-input="{{ message.user_input }}" data-sql-query="{{ message.result.sql_query }}">Correct it</button>
+                                <button class="run-button" data-sql-query="{{ message.result.sql_query }}">Run Query</button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <input type="text" id="user-input" placeholder="Write question to get SQL query and result." aria-label="User input">
+            <button id="send-button" aria-label="Send message">Send</button>
+        </div>
+    </div>
+
+    <!-- Summary modal -->
+    <div id="summary-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" aria-label="Close summary">&times;</span>
+            <p id="summary-text"></p>
+        </div>
+    </div>
+
+    <!-- Database details modal -->
+    <div id="database-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" aria-label="Close database details">&times;</span>
+            <h2>Database Details</h2>
+            <pre id="database-details-content"></pre>
+        </div>
+    </div>
+
+    <!-- Joins details modal -->
+    <div id="joins-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" aria-label="Close joins details">&times;</span>
+            <h2>Joins Details</h2>
+            <pre id="joins-details-content"></pre>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
