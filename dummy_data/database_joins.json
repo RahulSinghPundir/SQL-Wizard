@@ -1,0 +1,94 @@
+{
+    "Joins": [
+        {
+            "name": "employee_projects",
+            "models": [
+                "employees",
+                "projects"
+            ],
+            "joinType": "MANY_TO_MANY",
+            "condition": "employees.id = employee_projects.employee_id AND projects.id = employee_projects.project_id"
+        },
+        {
+            "name": "department_heads",
+            "models": [
+                "departments",
+                "employees"
+            ],
+            "joinType": "ONE_TO_ONE",
+            "condition": "departments.head_id = employees.id"
+        },
+        {
+            "name": "order_products",
+            "models": [
+                "orders",
+                "products"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "orders.id = order_products.order_id"
+        },
+        {
+            "name": "customer_orders",
+            "models": [
+                "customers",
+                "orders"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "customers.id = orders.customer_id"
+        },
+        {
+            "name": "inventory_products",
+            "models": [
+                "inventory",
+                "products"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "inventory.id = inventory_products.inventory_id"
+        },
+        {
+            "name": "supplier_products",
+            "models": [
+                "suppliers",
+                "products"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "suppliers.id = products.supplier_id"
+        },
+        {
+            "name": "project_tasks",
+            "models": [
+                "projects",
+                "tasks"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "projects.id = tasks.project_id"
+        },
+        {
+            "name": "order_shipments",
+            "models": [
+                "orders",
+                "shipments"
+            ],
+            "joinType": "ONE_TO_ONE",
+            "condition": "orders.id = shipments.order_id"
+        },
+        {
+            "name": "task_assignments",
+            "models": [
+                "tasks",
+                "employees"
+            ],
+            "joinType": "MANY_TO_MANY",
+            "condition": "tasks.id = task_assignments.task_id AND employees.id = task_assignments.employee_id"
+        },
+        {
+            "name": "customer_support",
+            "models": [
+                "customers",
+                "support_tickets"
+            ],
+            "joinType": "ONE_TO_MANY",
+            "condition": "customers.id = support_tickets.customer_id"
+        }
+    ]
+}
