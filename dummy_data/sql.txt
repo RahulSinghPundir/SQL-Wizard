@@ -1,0 +1,76 @@
+CREATE TABLE employees (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    department_id INT UNSIGNED,
+    PRIMARY KEY (id),
+    FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+CREATE TABLE departments (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    head_id INT UNSIGNED,
+    PRIMARY KEY (id),
+    FOREIGN KEY (head_id) REFERENCES employees(id)
+);
+
+CREATE TABLE projects (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    start_date DATE NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    customer_id INT UNSIGNED NOT NULL,
+    order_date DATE NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+CREATE TABLE products (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    supplier_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
+);
+
+CREATE TABLE customers (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE inventory (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    location VARCHAR(255) NOT NULL,
+    stock_level INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE tasks (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    project_id INT UNSIGNED NOT NULL,
+    description TEXT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (project_id) REFERENCES projects(id)
+);
+
+CREATE TABLE shipments (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    order_id INT UNSIGNED NOT NULL,
+    shipment_date DATE NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+CREATE TABLE support_tickets (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    customer_id INT UNSIGNED NOT NULL,
+    issue_description TEXT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
