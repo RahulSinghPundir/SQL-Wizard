@@ -1,0 +1,296 @@
+{
+    "Tables": [
+        {
+            "name": "employees",
+            "description": "Stores information about employees.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "department_id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "FOREIGN KEY",
+                        "REFERENCES departments(id)"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "departments",
+            "description": "Stores information about departments.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "head_id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "FOREIGN KEY",
+                        "REFERENCES employees(id)"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "projects",
+            "description": "Stores information about projects.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "start_date",
+                    "type": "date",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "orders",
+            "description": "Stores information about orders.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "customer_id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "FOREIGN KEY",
+                        "REFERENCES customers(id)"
+                    ]
+                },
+                {
+                    "name": "order_date",
+                    "type": "date",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "products",
+            "description": "Stores information about products.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "supplier_id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "FOREIGN KEY",
+                        "REFERENCES suppliers(id)"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "customers",
+            "description": "Stores information about customers.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "email",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "inventory",
+            "description": "Stores information about inventory.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "location",
+                    "type": "varchar(255)",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                },
+                {
+                    "name": "stock_level",
+                    "type": "int",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "tasks",
+            "description": "Stores information about tasks.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "project_id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "FOREIGN KEY",
+                        "REFERENCES projects(id)"
+                    ]
+                },
+                {
+                    "name": "description",
+                    "type": "text",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "shipments",
+            "description": "Stores information about shipments.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "order_id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "FOREIGN KEY",
+                        "REFERENCES orders(id)"
+                    ]
+                },
+                {
+                    "name": "shipment_date",
+                    "type": "date",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "support_tickets",
+            "description": "Stores information about customer support tickets.",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "AUTO_INCREMENT"
+                    ]
+                },
+                {
+                    "name": "customer_id",
+                    "type": "int unsigned",
+                    "constraints": [
+                        "NOT NULL",
+                        "FOREIGN KEY",
+                        "REFERENCES customers(id)"
+                    ]
+                },
+                {
+                    "name": "issue_description",
+                    "type": "text",
+                    "constraints": [
+                        "NOT NULL"
+                    ]
+                }
+            ]
+        }
+    ]
+}
